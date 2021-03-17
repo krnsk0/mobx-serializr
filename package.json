@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "mobx": "^6.1.8",
+    "nanoid": "^3.1.22",
     "serializr": "^2.0.5"
   }
 }

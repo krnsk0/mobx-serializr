@@ -1,0 +1,21 @@
+import { reference, serializable } from 'serializr';
+import { RootStore } from './rootStore';
+import { action, makeAutoObservable, observable } from 'mobx';
+
+export class Foo {
+  @serializable(reference(RootStore)) root: RootStore;
+  @serializable counter: number = 0;
+
+  constructor(root: RootStore) {
+    this.root = root;
+
+    makeAutoObservable(this, {
+      counter: observable,
+      incrementCounter: action,
+    });
+  }
+
+  incrementCounter(): void {
+    this.counter += 1;
+  }
+}
