@@ -13,14 +13,13 @@ console.log('serializing...');
 const json = serialize(RootStore, root);
 
 console.log('deserializing...');
-const newRoot = new RootStore();
 const deserialized = deserialize(
   RootStore,
   json,
   (err, user) => console.log('done'),
   //context object
-  { rootStore: newRoot }
+  { rootStore: new RootStore() }
 );
 
-const secondCounterSum = newRoot.fooStore.counterSum;
+const secondCounterSum = deserialized.fooStore.counterSum;
 console.assert(secondCounterSum === 9);
