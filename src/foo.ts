@@ -1,9 +1,9 @@
-import { reference, serializable } from 'serializr';
+import { createModelSchema, reference, serializable } from 'serializr';
 import { RootStore } from './rootStore';
 import { action, makeAutoObservable, observable } from 'mobx';
 
 export class Foo {
-  @serializable(reference(RootStore)) root: RootStore;
+  root: RootStore;
   @serializable counter: number = 0;
 
   constructor(root: RootStore) {
@@ -19,3 +19,7 @@ export class Foo {
     this.counter += 1;
   }
 }
+
+createModelSchema(Foo, { counter: true }, (context) => {
+  return new Foo(context.args.rootStore);
+});
