@@ -4,7 +4,7 @@ import { action, makeAutoObservable, observable } from 'mobx';
 
 export class Foo {
   root: RootStore;
-  @serializable counter: number = 0;
+  counter: number = 0;
 
   constructor(root: RootStore) {
     this.root = root;
