@@ -14,22 +14,29 @@ console.assert(firstCounterSum === 9);
 console.log('serializing...');
 const json = serialize(RootStore, root);
 
+// mess up state in the old root
+root.fooStore.incrementCounters();
+root.fooStore.incrementCounters();
+root.fooStore.incrementCounters();
+
 // attempt to deserialize
 console.log('deserializing...');
-const deserialized = deserialize(
+const deserialized = deserialize<RootStore>(
   RootStore,
   json,
   (err) => {
     if (err) console.error(err);
   },
   //context object
-  { rootStore: new RootStore() }
+  { rootStore: root }
 );
 
 // check to see if state was preserved
 const secondCounterSum = deserialized.fooStore.counterSum;
-console.assert(secondCounterSum === 9);
+console.assert(secondCounterSum === firstCounterSum);
 
-// check each foo's reference to root
-console.log(deserialized.uuid);
-console.log(deserialized.fooStore.foos[0].root.uuid);
+// check a foo's reference to root
+console.assert(deserialized.uuid === deserialized.fooStore.foos[0].root.uuid);
+
+// for some reason this fails
+// console.assert(deserialized === deserialized.fooStore.foos[0].root);
