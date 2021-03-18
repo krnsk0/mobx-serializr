@@ -1,8 +1,8 @@
-import { serializable, reference, identifier, object } from 'serializr';
+import { object, createModelSchema } from 'serializr';
 import { FooStore } from './fooStore';
 
 export class RootStore {
-  @serializable(object(FooStore)) fooStore: FooStore;
+  fooStore: FooStore;
 
   constructor() {
     this.fooStore = new FooStore(this);
@@ -10,3 +10,5 @@ export class RootStore {
     this.fooStore.init();
   }
 }
+
+createModelSchema<RootStore>(RootStore, { fooStore: object(FooStore) });

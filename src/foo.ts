@@ -1,4 +1,4 @@
-import { createModelSchema, reference, serializable } from 'serializr';
+import { createModelSchema, primitive } from 'serializr';
 import { RootStore } from './rootStore';
 import { action, makeAutoObservable, observable } from 'mobx';
 
@@ -20,6 +20,6 @@ export class Foo {
   }
 }
 
-createModelSchema(Foo, { counter: true }, (context) => {
+createModelSchema<Foo>(Foo, { counter: primitive() }, (context) => {
   return new Foo(context.rootContext.target);
 });

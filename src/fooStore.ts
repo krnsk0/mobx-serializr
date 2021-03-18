@@ -1,12 +1,11 @@
-import { list, object, reference, serializable } from 'serializr';
+import { createModelSchema, list, object } from 'serializr';
 import { Foo } from './foo';
 import { RootStore } from './rootStore';
 import { action, computed, makeAutoObservable, observable } from 'mobx';
 
 export class FooStore {
   root: RootStore;
-
-  @serializable(list(object(Foo))) foos: Foo[] = [];
+  foos: Foo[] = [];
 
   constructor(root: RootStore) {
     this.root = root;
@@ -14,6 +13,7 @@ export class FooStore {
     makeAutoObservable(this, {
       counterSum: computed,
       incrementCounters: action,
+      foos: observable,
     });
   }
 
@@ -32,3 +32,11 @@ export class FooStore {
     this.foos.forEach((foo) => foo.incrementCounter());
   }
 }
+
+createModelSchema<FooStore>(
+  FooStore,
+  { foos: list(object(Foo)) },
+  (context) => {
+    return new FooStore(context.rootContext.target);
+  }
+);
