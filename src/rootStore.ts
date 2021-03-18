@@ -6,8 +6,6 @@ export class RootStore {
 
   constructor() {
     this.fooStore = new FooStore(this);
-
-    this.fooStore.init();
   }
 }
 

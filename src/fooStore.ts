@@ -10,16 +10,14 @@ export class FooStore {
   constructor(root: RootStore) {
     this.root = root;
 
+    Array.from({ length: 3 }).forEach(() => {
+      this.foos.push(new Foo(this.root));
+    });
+
     makeAutoObservable(this, {
       counterSum: computed,
       incrementCounters: action,
       foos: observable,
-    });
-  }
-
-  init(): void {
-    Array.from({ length: 3 }).forEach(() => {
-      this.foos.push(new Foo(this.root));
     });
   }
 
