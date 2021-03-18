@@ -21,15 +21,7 @@ root.fooStore.incrementCounters();
 
 // attempt to deserialize
 console.log('deserializing...');
-const deserialized = deserialize<RootStore>(
-  RootStore,
-  json,
-  (err) => {
-    if (err) console.error(err);
-  },
-  //context object
-  { rootStore: root }
-);
+const deserialized = deserialize<RootStore>(RootStore, json);
 
 // check to see if state was preserved
 const secondCounterSum = deserialized.fooStore.counterSum;
@@ -37,3 +29,5 @@ console.assert(secondCounterSum === firstCounterSum);
 
 // for some reason this fails
 console.assert(deserialized === deserialized.fooStore.foos[0].root);
+
+console.log('done');
