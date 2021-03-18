@@ -37,7 +37,6 @@ const deserialized = deserialize<RootStore>(RootStore, json);
 const secondFooCounterSum = deserialized.fooStore.fooCounterSum;
 console.assert(secondFooCounterSum === firstFooCounterSum);
 const secondFooChildCounterSum = deserialized.fooStore.fooChildCounterSum;
-
 console.assert(secondFooChildCounterSum === firstFooCounterSum); // FAILS
 
 // check to see if root in a foo is correct
