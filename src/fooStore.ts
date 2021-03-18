@@ -15,19 +15,28 @@ export class FooStore {
     });
 
     makeAutoObservable(this, {
-      counterSum: computed,
-      incrementCounters: action,
+      fooCounterSum: computed,
+      incrementFooCounters: action,
       foos: observable,
     });
   }
 
-  get counterSum(): number {
-    console.log('computing counterSum in fooStore');
+  get fooCounterSum(): number {
+    console.log('computing fooCounterSum in fooStore');
     return this.foos.reduce((acc, foo) => acc + foo.counter, 0);
   }
 
-  incrementCounters(): void {
+  get fooChildCounterSum(): number {
+    console.log('computing fooChildCounterSum in fooStore');
+    return this.foos.reduce((acc, foo) => acc + foo.fooChild.counter, 0);
+  }
+
+  incrementFooCounters(): void {
     this.foos.forEach((foo) => foo.incrementCounter());
+  }
+
+  incrementFooChildCounters(): void {
+    this.foos.forEach((foo) => foo.fooChild.incrementCounter());
   }
 }
 
