@@ -21,5 +21,5 @@ export class Foo {
 }
 
 createModelSchema(Foo, { counter: true }, (context) => {
-  return new Foo(context.args.rootStore);
+  return new Foo(context.rootContext.target);
 });

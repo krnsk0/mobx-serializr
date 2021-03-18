@@ -35,8 +35,5 @@ const deserialized = deserialize<RootStore>(
 const secondCounterSum = deserialized.fooStore.counterSum;
 console.assert(secondCounterSum === firstCounterSum);
 
-// check a foo's reference to root
-console.assert(deserialized.uuid === deserialized.fooStore.foos[0].root.uuid);
-
 // for some reason this fails
-// console.assert(deserialized === deserialized.fooStore.foos[0].root);
+console.assert(deserialized === deserialized.fooStore.foos[0].root);
