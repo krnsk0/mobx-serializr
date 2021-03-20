@@ -13,7 +13,6 @@ console.assert(firstFooCounterSum === 9);
 // set some FooChild state and make an assertion about it
 root.fooStore.incrementFooChildCounters();
 const firstFooChildCounterSum = root.fooStore.fooChildCounterSum;
-console.log('firstFooChildCounterSum: ', firstFooChildCounterSum);
 console.assert(firstFooChildCounterSum === 3);
 
 // attempt to serialize the root
@@ -37,7 +36,7 @@ const deserialized = deserialize<RootStore>(RootStore, json);
 const secondFooCounterSum = deserialized.fooStore.fooCounterSum;
 console.assert(secondFooCounterSum === firstFooCounterSum);
 const secondFooChildCounterSum = deserialized.fooStore.fooChildCounterSum;
-console.assert(secondFooChildCounterSum === firstFooCounterSum); // FAILS
+console.assert(secondFooChildCounterSum === firstFooChildCounterSum);
 
 // check to see if root in a foo is correct
 console.assert(deserialized === deserialized.fooStore.foos[0].root);
